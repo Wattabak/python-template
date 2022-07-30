@@ -24,7 +24,7 @@ def load_python_version(default: str,
 
 
 def read_requirements(requirements_path: Path):
-    pass
+    return PACKAGE_ROOT.joinpath(requirements_path).read_text().strip()
 
 
 def read_long_description(readme_path: Path):
