@@ -7,6 +7,7 @@ authors = ["Vlad Tabakov <vl.tab.kov@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 toml = "^0.10.2"
+pydantic = "^1.9.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.1"
