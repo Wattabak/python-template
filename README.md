@@ -1,5 +1,7 @@
 # python-template
 
+A collection of best-practices for handling python projects,
+with various recipes for building using different projects 
 
 
 ## Build
