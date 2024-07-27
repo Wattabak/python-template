@@ -41,6 +41,19 @@ Setting up neo4j for local development
     neo4j:latest
 ```
 
+Setting up psql for local development
+  
+```shell  
+docker run \
+	--name=postgres \ 
+	-p 5433:5432 \  
+	-v "$(pwd)/.postgres":/var/lib/postgresql/data \  
+	-e POSTGRES_USER=dms \
+	-e POSTGRES_PASSWORD=mypassword \
+	-e POSTGRES_DB=dms \
+	-d postgres
+```
+
 ### Running tests
 
 ```shell

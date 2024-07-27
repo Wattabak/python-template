@@ -2,41 +2,48 @@
 
 Sample django project using basic docker setup build
 
+**Dependencies**
+
 - Python 3.11
 - PostgreSQL
 - Django 5.0
 - drf_spectacular
 
-## Authors:
+# Authors:
 
 - Vlad Tabakov (vl.tab.kov@gmail.com)
 
 
-## Local Deployment via manage.py
+# Development
+
+## Local environment
+
+Build the local interpreter to run tests or debug and prepare compose for running the app locally
+
+### Prepare python environment
 
 ```shell
-# create local environment
-pyenv install --skip-existing 3.11 && pyenv local 3.11 
-pyenv exec python3.11 -m venv venv 
+make interpreter
+# Make sure all system requirements are ready before running the next option
+make venv install 
 source venv/bin/activate
-# install packages
-pip3 install -r requirements.txt
-# Run migrations
-./api/manage.py makemigrations 
-# Create superuser for admin views
-./api/manage.py createsuperuser 
-# Run the api from local env
-./api/manage.py runserver 
 ```
 
-## Load data from csv file
-
-To load glucose data from a csv file a management command can be used:
-
+### Get the local db ready
 ```shell
-  # file name has to be in the `user_id`.csv format, 
-  # users will be created taking the filename into consideration
-  ./api/manage.py load_glucose_level_csv "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa.csv"
+# If you dont want to use compose build the db container separately 
+docker run \
+	--name=postgres \ 
+	-p 15432:5432 \  
+	-v "$(pwd)/.postgres":/var/lib/postgresql/data \  
+	-e POSTGRES_USER=dbuser \
+	-e POSTGRES_PASSWORD=dbpassword \
+	-e POSTGRES_DB=default \
+	-d postgres
+	
+# otherwise just use docker compose with the api service and all
+cp .env.sample .env
+docker compose up -d --build --force-recreate 
 ```
 
 ## API documentation
